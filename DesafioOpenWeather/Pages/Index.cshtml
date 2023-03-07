@@ -1,0 +1,53 @@
+﻿@page
+@model IndexModel
+@using DesafioOpenWeather.Model;
+@inject HttpClient httpClient
+@{
+    ViewData["Title"] = "Home page";
+    
+}
+
+<h1>Clima</h1>
+
+<form method="post" handler="submit">
+    <div class="form-group row">
+        <div class="col-sm-3">
+            <select class="form-control" asp-for="CidadeQuery">
+                <option value="">Todas</option>
+                <option value="Porto Alegre">Porto Alegre</option>
+                <option value="Florianópolis">Florianópolis</option>
+                <option value="Curitiba">Curitiba</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <input type="datetime-local" class="form-control" asp-for="DataInicioQuery" placeholder="Data inicial">
+        </div>
+        <div class="col-sm-3">
+            <input type="datetime-local" class="form-control" asp-for="DataFinalQuery" placeholder="Data final">
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cidade</th>
+            <th>Temperatura</th>
+            <th>Data/Hora</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clima in Model.Climas)
+        {
+            <tr>
+                <td>@clima.Cidade</td>
+                <td>@clima.Temperatura</td>
+                <td>@clima.Horario</td>
+            </tr>
+        }
+    </tbody>
+</table>
